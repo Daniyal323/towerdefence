@@ -14,7 +14,7 @@ public class DialogueSystem : MonoBehaviour
     private Coroutine typingCoroutine;
     private bool isDialoguebox = true;
 
-    public Button continueButton; // Reference to the UI button
+    public Button continueButton; 
 
     // Start is called before the first frame update
     void Start()
@@ -26,7 +26,6 @@ public class DialogueSystem : MonoBehaviour
         }
         StartDialogue();
 
-        // Add a listener to the button's click event
         continueButton.onClick.AddListener(ContinueButtonClicked);
     }
 
@@ -34,19 +33,16 @@ public class DialogueSystem : MonoBehaviour
     {
         if (typingCoroutine != null)
         {
-            // If typing, show full line immediately
             StopCoroutine(typingCoroutine);
-            textcomponent.text = lines[index]; // Display full line
-            typingCoroutine = null; // Set coroutine to null
+            textcomponent.text = lines[index]; 
+            typingCoroutine = null; 
         }
         else if (index < lines.Length - 1)
         {
-            // If not typing and there's more text, progress to the next line
             NextLine();
         }
         else
         {
-            // If not typing and no more text, hide the canvas
             isDialoguebox = false;
             if(isDialoguebox == false)
             {
@@ -70,7 +66,7 @@ public class DialogueSystem : MonoBehaviour
             textcomponent.text += c;
             yield return new WaitForSecondsRealtime(textSpeed);
         }
-        typingCoroutine = null; // Reset coroutine when line is fully typed
+        typingCoroutine = null;
     }
 
     void NextLine()
