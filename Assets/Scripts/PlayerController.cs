@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class PlayerController : MonoBehaviour
 {
@@ -11,10 +12,12 @@ public class PlayerController : MonoBehaviour
     float turnSmoothVelocity;
     public float turnSmoothTime = 0.1f;
     Animator anim;
+    public Button shootButton;
 
     private void Start()
     {
         anim = this.GetComponent<Animator>();
+        shootButton.onClick.AddListener(Shoot);
     }
 
     // Update is called once per frame
@@ -23,7 +26,7 @@ public class PlayerController : MonoBehaviour
         float horizontal = Input.GetAxisRaw("Horizontal");
         float vertical = Input.GetAxisRaw("Vertical");
         Vector3 direction = new Vector3(horizontal, 0f, vertical).normalized;
-        if(direction.magnitude >= 0.1f)
+        if (direction.magnitude >= 0.1f)
         {
             anim.SetFloat("movement", 1);
             float targetAngle = Mathf.Atan2(direction.x, direction.z) * Mathf.Rad2Deg + cam.eulerAngles.y;
@@ -32,9 +35,14 @@ public class PlayerController : MonoBehaviour
             Vector3 movDir = Quaternion.Euler(0f, targetAngle, 0f) * Vector3.forward;
             controller.Move(movDir.normalized * speed * Time.deltaTime);
         }
-        else if(direction.magnitude == 0)
+        else if (direction.magnitude == 0)
         {
             anim.SetFloat("movement", 0);
         }
+        
+    }
+    void Shoot()
+    {
+        anim.SetBool("shoot", true);
     }
 }
