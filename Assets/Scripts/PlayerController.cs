@@ -17,6 +17,7 @@ public class PlayerController : MonoBehaviour
 
     [SerializeField] private Joystick easyjoystick;
 
+
     private void Start()
     {
         anim = this.GetComponent<Animator>();
