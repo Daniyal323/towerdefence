@@ -1,27 +1,46 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
-public class CameraController : MonoBehaviour
+public class CameraController: MonoBehaviour
 {
-    public Transform cameraTransform;  // Assign your main camera here
-    public Transform gunPivot;  // Assign the empty GameObject here
+    public Transform target;               // The target the camera will follow
+    public Vector3 offset = new Vector3(0f, 2f, -5f);   // Camera offset from the target
+    public float smoothSpeed = 0.125f;      // Speed at which the camera follows the target
+    public float rotationSpeed = 2f;        // Speed at which the camera rotates around the target
 
-    private void Update()
+    private Vector3 desiredPosition;
+
+    private void Start()
     {
-        // Calculate the rotation needed to point the player and gun towards the camera's forward direction
-        Quaternion targetRotation = Quaternion.LookRotation(cameraTransform.forward, Vector3.up);
+        if (target == null)
+        {
+            Debug.LogError("No target assigned to the ThirdPersonCamera script.");
+        }
+        desiredPosition = target.position + offset;
+    }
 
-        // Apply the rotation to the player
-        transform.rotation = Quaternion.Euler(0, targetRotation.eulerAngles.y, 0);
+    private void LateUpdate()
+    {
+        if (target == null)
+        {
+            return;
+        }
 
-        // Calculate the rotation needed to point the gun towards the camera's forward direction, but only in the horizontal plane
-        Vector3 targetGunDirection = cameraTransform.forward;
-        targetGunDirection.y = gunPivot.forward.y;  // Maintain the gun's local y-rotation
+        // Calculate the desired position of the camera based on the target's position and offset
+        desiredPosition = target.position + offset;
 
-        Quaternion targetGunRotation = Quaternion.LookRotation(targetGunDirection, Vector3.up);
+        // Smoothly move the camera to the desired position
+        Vector3 smoothedPosition = Vector3.Lerp(transform.position, desiredPosition, smoothSpeed);
+        transform.position = smoothedPosition;
 
-        // Apply the rotation to the gun pivot
-        gunPivot.rotation = targetGunRotation;
+        // Calculate the rotation angle based on the player's input
+        float horizontalInput = Input.GetAxis("Horizontal");
+        float rotationAngle = horizontalInput * rotationSpeed * Time.deltaTime;
+
+        // Rotate the camera around the target
+        Quaternion rotation = Quaternion.Euler(0f, rotationAngle, 0f);
+        offset = rotation * offset;
+
+        // Make the camera look at the target
+        transform.LookAt(target);
     }
 }
