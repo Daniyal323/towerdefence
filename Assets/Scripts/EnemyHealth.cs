@@ -56,7 +56,7 @@ public class EnemyHealth : MonoBehaviour
         isDead = true;
         animator.SetTrigger("Death");
 
-        Destroy(gameObject, 2f); // Destroy the gameobject after some time
+        Destroy(gameObject, 3f); // Destroy the gameobject after some time
 
     }
 }

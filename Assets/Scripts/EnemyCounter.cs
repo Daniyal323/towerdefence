@@ -7,7 +7,7 @@ public class EnemyCounter : MonoBehaviour
     public GameObject joystick;
     public GameObject[] weaponOptions; // An array of weapon options
 
-    public int enemyCount;
+    private int enemyCount;
     public GameObject selectedWeapon; // The currently selected weapon
 
     private void Start()
