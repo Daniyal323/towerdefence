@@ -8,6 +8,7 @@ TagManager:
   - nerf
   - enemy
   - complete
+  - coins
   layers:
   - Default
   - TransparentFX

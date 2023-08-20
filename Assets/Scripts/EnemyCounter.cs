@@ -7,6 +7,7 @@ public class EnemyCounter : MonoBehaviour
     public GameObject joystick;
     public GameObject arrow;
     public GameObject[] weaponOptions; // An array of weapon options
+    public GameObject[] coins; // An array of coin GameObjects
 
     private int enemyCount;
     public GameObject selectedWeapon; // The currently selected weapon
@@ -32,6 +33,9 @@ public class EnemyCounter : MonoBehaviour
                 Destroy(selectedWeapon);
                 selectedWeapon = null;
             }
+
+            // Activate coins when enemy count becomes 0
+            ActivateCoins();
         }
         else
         {
@@ -72,5 +76,13 @@ public class EnemyCounter : MonoBehaviour
     private void UpdateUI()
     {
         // Update any UI elements as needed
+    }
+
+    private void ActivateCoins()
+    {
+        foreach (GameObject coin in coins)
+        {
+            coin.SetActive(true);
+        }
     }
 }
