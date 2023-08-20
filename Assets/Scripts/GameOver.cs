@@ -1,6 +1,8 @@
+using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 
-public class LevelComplete : MonoBehaviour
+public class GameOver : MonoBehaviour
 {
     public GameObject levelCompleteCanvas; // Reference to the canvas showing level complete message
     public GameObject joystick;
@@ -8,7 +10,7 @@ public class LevelComplete : MonoBehaviour
     private void OnTriggerEnter(Collider other)
     {
         Debug.Log("collision");
-        if(other.gameObject.tag == "complete")
+        if (other.gameObject.tag == "Player")
         {
             levelCompleteCanvas.SetActive(true);
             joystick.SetActive(false);
