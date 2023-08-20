@@ -5,6 +5,7 @@ public class EnemyCounter : MonoBehaviour
 {
     public Button firingButton;
     public GameObject joystick;
+    public GameObject arrow;
     public GameObject[] weaponOptions; // An array of weapon options
 
     private int enemyCount;
@@ -25,6 +26,7 @@ public class EnemyCounter : MonoBehaviour
         {
             firingButton.gameObject.SetActive(false);
             joystick.SetActive(true);
+            arrow.SetActive(true);
             if (selectedWeapon != null)
             {
                 Destroy(selectedWeapon);

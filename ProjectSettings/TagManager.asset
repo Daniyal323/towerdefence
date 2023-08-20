@@ -7,6 +7,7 @@ TagManager:
   - Ground
   - nerf
   - enemy
+  - complete
   layers:
   - Default
   - TransparentFX
